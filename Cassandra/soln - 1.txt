@@ -1,0 +1,113 @@
+
+SELECT * FROM institute;
+
+####################################################################################
+1. Create Table institute with following details :
+	institute id, institute name,institute city, institute regno and institute phone.
+	
+CREATE TABLE institute(
+   id int primary key,
+   name text,
+   city text,
+   regno int,
+   phone text 
+);
+
+####################################################################################
+2. Insert 2 records in Institute Table and display them.
+
+INSERT INTO institute   (id, name, city, regno, phone) values ( 100, 'CDAC-ACTS', 'Pune', 111,'020-25503134') ;
+
+
+INSERT INTO institute   (id, name, city, regno, phone) values ( 101, 'Know-IT', 'Pune', 222,'9021479888') ;
+####################################################################################
+3. Add institute email column in institute Table.
+ 
+ALTER TABLE institute 
+ADD email text;
+####################################################################################
+4. Delete institute email column from institute Table.
+
+ALTER TABLE institute
+DROP email; 
+
+####################################################################################
+5. Delete institute regno and phone columns from institute Table.
+ 
+ALTER TABLE institute
+DROP (regno, phone);
+#################################################################################### 
+6. Delete institute table.
+
+Drop Table KeyspaceName.TableName
+DROP TABLE institute;
+
+#################################################################################### 
+
+<<<<<<<<<<<<<<<<     CQL Assignments      >>>>>>>>>>>>>>>>>>>>
+
+#################################################################################### 
+1. Create product table with following details (product id, name, desc,price,qty).
+
+CREATE TABLE product (
+                        pid int primary key, 
+                        name text,
+                        des text,
+                        price float,
+                        qty int
+);
+####################################################################################
+
+2. Insert 3 records in product table.
+
+INSERT INTO product (pid, name, des, price, qty) values (111, 'Bottle', 'Plastic', 60.00, 100);
+INSERT INTO product (pid, name, des, price, qty) values (222, 'Tiffin Box', 'Steel', 299.00, 100);
+INSERT INTO product (pid, name, des, price, qty) values (333, 'Tiffin Box', 'Plastic', 99.00, 100);
+####################################################################################
+3. display procuct id and name from product table.
+
+SELECT pid, name
+FROM product;
+
+
+####################################################################################
+4. Diaplay all details of product having id 2.
+
+SELECT * FROM product WHERE pid = 222;
+####################################################################################
+5. Delete an entire row of product id 3
+
+DELETE FROM product WHERE pid=333
+####################################################################################	  
+6. Delete the product_price where product_id is 1.
+
+DELETE price FROM product WHERE pid=111;
+####################################################################################
+7. Modify product id 2 to set  price to 10,000 and product name to washing machine. 
+
+UPDATE product
+SET price = 10000, name = 'Washing Machine'
+WHERE pid = 222;
+####################################################################################
+8. Create index on product name column.
+
+CREATE INDEX idx_name
+ON product(name);
+
+desc idx_name
+####################################################################################
+9. Drop Index created on product name column.
+
+drop INDEX idx_name
+####################################################################################
+10. perform the BATCH (Insert, Update and Delete) operations on product table:
+   Insert a new row with the following details (4, 4000, 'CD Player').
+   Update the product_price of product with row id 3 to 8000.
+   Delete product_price of the procuct with row id 2.
+
+
+BEGIN BATCH
+   INSERT INTO product (pid, price, name) values (4, 4000, 'CD Player');
+   UPDATE product SET price = 8000 WHERE pid = 333;
+   DELETE price FROM product WHERE pid=222;
+APPLY BATCH;   
